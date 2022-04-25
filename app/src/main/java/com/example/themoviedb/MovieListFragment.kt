@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.themoviedb.adapter.MovieListAdapter
 import com.example.themoviedb.adapter.MovieListClickListener
 import com.example.themoviedb.database.MovieDatabase
@@ -45,6 +46,9 @@ class MovieListFragment : Fragment() {
             viewModel.onMovieListItemClicked(movie)
             viewModel.getMovieDetails(movie.id.toString())
         })
+        val gridLayoutManager = GridLayoutManager(application,2)
+
+        binding.movieListRv.layoutManager = gridLayoutManager
         binding.movieListRv.adapter = movieListAdapter
         viewModel.movies.observe(viewLifecycleOwner) { movieList ->
             movieList?.let{
