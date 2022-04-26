@@ -7,6 +7,11 @@
         <variable
             name="movie"
             type="com.example.themoviedb.model.Movie" />
+
+        <variable
+            name="viewModel"
+            type="com.example.themoviedb.viewmodel.MovieDetailViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="gen"
+            android:text=""
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_detail_title" />
 
@@ -53,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="homepage"
+            android:text="@{viewModel.homepage}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_detail_genres"
             android:autoLink="web"/>
@@ -65,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="IMDB"
+            android:text="@{viewModel.homepage}"
             android:textStyle="bold"
             android:backgroundTint="#F5C518"
             android:textColor="@color/black"
@@ -90,6 +95,30 @@
             android:text="@string/next"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/back_to_movie_list" />
+
+        <Button
+            android:id="@+id/add_to_db"
+            android:onClick="@{() -> viewModel.onAddToDBButtonClicked(movie)}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="92dp"
+            android:text="@string/add_to_db"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.457"
+            app:layout_constraintStart_toEndOf="@+id/back_to_movie_list" />
+
+        <Button
+            android:id="@+id/remove_from_db"
+            android:onClick="@{() -> viewModel.onRemoveToDBButtonClicked(movie)}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="160dp"
+            android:text="@string/rm_to_db"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.366"
             app:layout_constraintStart_toEndOf="@+id/back_to_movie_list" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

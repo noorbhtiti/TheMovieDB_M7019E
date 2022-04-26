@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.themoviedb.model.Movie
+import com.example.themoviedb.model.MovieDetails
 
 @Dao
 interface MovieDatabaseDao {
@@ -22,5 +23,5 @@ interface MovieDatabaseDao {
 
 
     @Query("SELECT EXISTS(SELECT * from movies WHERE id = :id)")
-    suspend fun isFavorite(id:Long):Boolean
+    suspend fun isFavorite(id: Int):Boolean
 }
