@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/layout/fragment_moive_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/layout/fragment_movie_detail.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/layout/fragment_third.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/layout/movie_grid_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB/app/src/main/res/drawable/ic_connection_error.xml" value="0.1" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB/app/src/main/res/drawable/loading_img.xml" value="0.176" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB/app/src/main/res/layout/activity_main.xml" value="0.2223731884057971" />
