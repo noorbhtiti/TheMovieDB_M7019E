@@ -44,7 +44,6 @@ class MovieListFragment : Fragment() {
 
         val movieListAdapter = MovieListAdapter(MovieListClickListener { movie ->
             viewModel.onMovieListItemClicked(movie)
-            viewModel.getMovieDetails(movie.id.toString())
         })
         val gridLayoutManager = GridLayoutManager(application,2)
 
