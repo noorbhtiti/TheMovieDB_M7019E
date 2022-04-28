@@ -1,5 +1,3 @@
-package com.example.themoviedb.viewmodel
-
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -50,7 +48,7 @@ class MovieDetailViewModel(
 
     private fun setIsFavorite(movie: Movie) {
         viewModelScope.launch {
-            _isFavorite.value = movieDatabaseDao.isFavorite(movie.id)
+            _isFavorite.value = movieDatabaseDao.isFavorite(movie.id.toInt())
         }
     }
 
@@ -75,7 +73,7 @@ class MovieDetailViewModel(
                 _movieDetails.value?.genres = movieDetailsResponse.genres
                 _movieDetails.value?.imdb_id = movieDetailsResponse.imdb_id.toString()
                 _movieDetails.value?.homepage = movieDetailsResponse.homepage.toString()
-                _movieDetails.value?.id = movieDetailsResponse.id!!
+                _movieDetails.value?.id = movieDetailsResponse.id
                 _dataFetchStatus.value = DataFetchStatus.DONE
             }catch (e:Exception){
                 _dataFetchStatus.value = DataFetchStatus.ERROR
