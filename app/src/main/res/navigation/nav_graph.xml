@@ -29,13 +29,13 @@
             app:argType="com.example.themoviedb.model.Movie" />
         <action
             android:id="@+id/action_SecondFragment_to_thirdFragment"
-            app:destination="@id/thirdFragment" />
+            app:destination="@id/ThirdFragment" />
     </fragment>
     <fragment
-        android:id="@+id/thirdFragment"
-        android:name="com.example.themoviedb.ThirdFragment"
-        android:label="fragment_third"
-        tools:layout="@layout/fragment_third" >
+        android:id="@+id/ThirdFragment"
+        android:name="com.example.themoviedb.MovieExtrasFragment"
+        android:label="@string/fragment_third_label"
+        tools:layout="@layout/fragment_movie_extras" >
         <action
             android:id="@+id/action_thirdFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
