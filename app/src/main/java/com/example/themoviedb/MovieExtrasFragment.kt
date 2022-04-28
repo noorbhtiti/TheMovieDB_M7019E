@@ -6,20 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.themoviedb.databinding.FragmentThirdBinding
+import com.example.themoviedb.databinding.FragmentMovieExtrasBinding
+import com.example.themoviedb.databinding.FragmentThirdBindingImpl
 
 
-class ThirdFragment : Fragment() {
+class MovieExtrasFragment : Fragment() {
 
 
-    private var _binding: FragmentThirdBinding? = null
+    private var _binding: FragmentMovieExtrasBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentThirdBinding.inflate(inflater, container, false)
+        _binding = FragmentMovieExtrasBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -28,7 +29,7 @@ class ThirdFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.BackToHome.setOnClickListener {
-            findNavController().navigate(ThirdFragmentDirections.actionThirdFragmentToFirstFragment())
+            findNavController().navigate(MovieExtrasFragmentDirections.actionThirdFragmentToFirstFragment())
         }
 
     }

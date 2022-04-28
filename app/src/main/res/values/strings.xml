@@ -10,5 +10,5 @@
     <string name="previous">Previous</string>
     <string name="todo">TODO</string>
     <string name="movies_are_being_loaded">Movies are being loaded</string>
-    <string name="imdb">IMDB</string>
+    <string name="fragment_third_label">Movie Extras</string>
 </resources>
