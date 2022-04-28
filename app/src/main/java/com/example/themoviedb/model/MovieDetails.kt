@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class MovieDetails(
     @Json(name = "id")
-    var id :Int,
+    var id :Int?,
 
     @Json(name = "homepage")
     var homepage : String,
@@ -19,7 +19,7 @@ data class MovieDetails(
     var imdb_id : String,
 
     @Json(name = "genres")
-    var results: List<Genres> = listOf()
+    var genres: List<Genres>? = listOf()
 
 
 

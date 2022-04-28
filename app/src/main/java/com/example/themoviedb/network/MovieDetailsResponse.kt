@@ -8,12 +8,14 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 class MovieDetailsResponse {
+    @Json(name = "id")
+    var id: Int = 0
 
     @Json(name = "homepage")
-    lateinit var homepage: String
+    var homepage: String = ""
 
     @Json(name = "imdb_id")
-    lateinit var imdb_id: String
+    var imdb_id: String = ""
 
     @Json(name = "genres")
     var genres: List<Genres> = listOf()
