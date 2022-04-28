@@ -7,9 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.themoviedb.database.MovieDatabaseDao
 import com.example.themoviedb.model.Movie
-import com.example.themoviedb.model.MovieDetails
 import com.example.themoviedb.network.DataFetchStatus
-import com.example.themoviedb.network.MovieDetailsResponse
 import com.example.themoviedb.network.MovieResponse
 import com.example.themoviedb.network.TMDBApi
 import kotlinx.coroutines.launch

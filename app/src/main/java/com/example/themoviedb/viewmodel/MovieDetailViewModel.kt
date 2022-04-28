@@ -1,19 +1,16 @@
 package com.example.themoviedb.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.themoviedb.database.MovieDatabaseDao
 import com.example.themoviedb.model.Movie
-import com.example.themoviedb.model.MovieDetails
 import com.example.themoviedb.network.DataFetchStatus
 import com.example.themoviedb.network.MovieDetailsResponse
 import com.example.themoviedb.network.TMDBApi
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class MovieDetailViewModel(
     private val movieDatabaseDao: MovieDatabaseDao,
@@ -45,8 +42,8 @@ class MovieDetailViewModel(
     }
 
 
-    private val _movieDetails = MutableLiveData<MovieDetails?>()
-    val movieDetails: LiveData<MovieDetails?>
+    private val _movieDetails = MutableLiveData<MovieDetailsResponse?>()
+    val movieDetails: LiveData<MovieDetailsResponse?>
         get() {
             return _movieDetails
         }
@@ -56,8 +53,7 @@ class MovieDetailViewModel(
         viewModelScope.launch {
             try {
                 val movieDetailsResponse: MovieDetailsResponse = TMDBApi.movieListRetrofitService.getMovieDetails(movie_id)
-                _movieDetails.value?.homepage = movieDetailsResponse.homepage
-                _movieDetails.value?.imdb_id = movieDetailsResponse.imdb_id
+                _movieDetails.value = movieDetailsResponse
                 _dataFetchStatus.value = DataFetchStatus.DONE
             }catch (e:Exception){
                 _dataFetchStatus.value = DataFetchStatus.ERROR

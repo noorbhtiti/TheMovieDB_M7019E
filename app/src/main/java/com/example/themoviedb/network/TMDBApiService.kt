@@ -1,6 +1,5 @@
 package com.example.themoviedb.network
 
-import com.example.themoviedb.model.MovieDetails
 import com.example.themoviedb.utils.Constants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

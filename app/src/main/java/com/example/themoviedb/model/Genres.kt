@@ -10,8 +10,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Genres(
-    @Json(name = "id")
-    var id :Int,
 
     @Json(name = "name")
     var name : String,

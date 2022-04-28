@@ -1,6 +1,5 @@
 package com.example.themoviedb
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,15 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.themoviedb.database.MovieDatabase
 import com.example.themoviedb.database.MovieDatabaseDao
-import com.example.themoviedb.databinding.FragmentMoiveListBinding
 import com.example.themoviedb.databinding.FragmentMovieDetailBinding
 import com.example.themoviedb.model.Movie
-import com.example.themoviedb.model.MovieDetails
 import com.example.themoviedb.utils.Constants
 import com.example.themoviedb.viewmodel.MovieDetailViewModel
 import com.example.themoviedb.viewmodel.MovieDetailViewModelFactory
-import com.example.themoviedb.viewmodel.MovieListViewModel
-import com.example.themoviedb.viewmodel.MovieListViewModelFactory
 
 
 /**
@@ -36,7 +31,7 @@ class MovieDetailFragment : Fragment() {
 
 
     private lateinit var movie : Movie
-    private lateinit var movieDetails: MovieDetails
+    private lateinit var imdb_id: String
 
 
     override fun onCreateView(
@@ -52,7 +47,12 @@ class MovieDetailFragment : Fragment() {
         viewModelFactory = MovieDetailViewModelFactory(movieDatabaseDao, application,movie)
         viewModel = ViewModelProvider(this, viewModelFactory)[MovieDetailViewModel::class.java]
         binding.movie = movie
-        binding.detailsModel = viewModel
+        viewModel.movieDetails.observe(viewLifecycleOwner) {
+            it?.let{
+                binding.detailsModel = it
+                imdb_id = it.imdb_id
+            }
+        }
         return binding.root
 
     }
@@ -69,7 +69,7 @@ class MovieDetailFragment : Fragment() {
         }
 
         binding.imdbButton.setOnClickListener {
-            val uri: Uri = Uri.parse(Constants.IMDB_URL+ movieDetails.imdb_id) // missing 'http://' will cause crashed
+            val uri: Uri = Uri.parse(Constants.IMDB_URL+imdb_id) // missing 'http://' will cause crashed
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }

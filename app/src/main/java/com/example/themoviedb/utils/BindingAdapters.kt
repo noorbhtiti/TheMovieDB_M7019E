@@ -1,8 +1,11 @@
 package com.example.themoviedb.utils
 
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.example.themoviedb.model.Genres
 
 
 @BindingAdapter("posterImageUrl")
@@ -24,3 +27,17 @@ fun bindBackdropImage(imgView: ImageView, imgUrl:String) {
             .into(imgView);
     }
 }
+
+//@BindingAdapter("imdbBindUrl")
+//fun bindImdbUrl(button: Button,imdb_id:String){
+//    imdb_id.let {
+//        button.setOnClickListener {  }
+//    }
+//}
+//
+//@BindingAdapter("genresBind")
+//fun bindGenres(textView: TextView,genres:List<Genres>){
+//    genres.let {
+//            textView.text = genres.joinToString()
+//    }
+//}
