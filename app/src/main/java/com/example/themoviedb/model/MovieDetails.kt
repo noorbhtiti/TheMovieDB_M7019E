@@ -8,16 +8,21 @@ import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@Entity(tableName = "movieDetails")
 data class MovieDetails(
+    @PrimaryKey()
     @Json(name = "id")
     var id :Int?,
 
+    @ColumnInfo(name = "homepage")
     @Json(name = "homepage")
     var homepage : String,
 
+    @ColumnInfo(name = "imdb_id")
     @Json(name = "imdb_id")
     var imdb_id : String,
 
+    @ColumnInfo(name = "genres")
     @Json(name = "genres")
     var genres: List<Genres>? = listOf()
 

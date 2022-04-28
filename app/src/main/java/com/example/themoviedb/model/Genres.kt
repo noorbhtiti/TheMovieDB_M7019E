@@ -9,10 +9,13 @@ import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
+@Entity(tableName = "genres")
 data class Genres(
+    @PrimaryKey()
     @Json(name = "id")
     var id :Int,
 
+    @ColumnInfo(name = "name")
     @Json(name = "name")
     var name : String,
 
