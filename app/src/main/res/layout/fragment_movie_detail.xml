@@ -10,6 +10,9 @@
         <variable
             name="detailsModel"
             type="com.example.themoviedb.network.MovieDetailsResponse" />
+        <variable
+            name="viewModel"
+            type="com.example.themoviedb.viewmodel.MovieDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,6 +63,18 @@
             app:layout_constraintTop_toBottomOf="@+id/movie_detail_genres"
             android:autoLink="web"/>
 
+        <TextView
+            android:id="@+id/movie_detail_overview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{detailsModel.overview}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_detail_website"
+            android:autoLink="web"/>
+
+
 
         <Button
             android:id="@+id/imdb_button"
@@ -72,27 +87,61 @@
             android:backgroundTint="#F5C518"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_detail_website" />
+            app:layout_constraintTop_toBottomOf="@+id/movie_detail_overview" />
 
-        <Button
+        <ImageButton
             android:id="@+id/back_to_movie_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="84dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
             android:text="@string/previous"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@null"
+            />
 
-        <Button
+        <ImageButton
             android:id="@+id/go_to_third_fragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/ic_baseline_arrow_forward_24"
             android:text="@string/next"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/back_to_movie_list" />
+            android:background="@null"
+            />
+
+
+        <ImageButton
+            android:id="@+id/saveToDBButtonView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:onClick="@{() -> viewModel.onAddToDBButtonClicked(movie)}"
+            android:src="@drawable/ic_baseline_favorite_border_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/go_to_third_fragment"
+            app:layout_constraintStart_toEndOf="@+id/back_to_movie_list"
+            android:background="@null"
+            />
+
+        <ImageButton
+            android:id="@+id/removeFromDBButtonView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:onClick="@{ () -> viewModel.onRemoveFromDBButtonClicked(movie)}"
+            android:src="@drawable/ic_baseline_favorite_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/go_to_third_fragment"
+            app:layout_constraintStart_toEndOf="@+id/back_to_movie_list"
+            android:background="@null"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

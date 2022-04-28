@@ -16,5 +16,9 @@ class MovieDetailsResponse {
     @Json(name = "genres")
     var genres: List<Genres> = listOf()
 
+    @Json(name = "overview")
+    lateinit var overview: String
+
+
 
 }

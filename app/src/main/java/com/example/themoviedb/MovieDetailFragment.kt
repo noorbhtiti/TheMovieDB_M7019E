@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -49,6 +50,7 @@ class MovieDetailFragment : Fragment() {
         viewModelFactory = MovieDetailViewModelFactory(movieDatabaseDao, application,movie)
         viewModel = ViewModelProvider(this, viewModelFactory)[MovieDetailViewModel::class.java]
         binding.movie = movie
+
         viewModel.movieDetails.observe(viewLifecycleOwner) {
             it?.let{
                 binding.detailsModel = it
@@ -63,6 +65,23 @@ class MovieDetailFragment : Fragment() {
             }
             binding.movieDetailGenres.text = genresText + mutableList.joinToString(", ")
         }
+        viewModel.isFavorite.observe(viewLifecycleOwner){   isFavorite ->
+            isFavorite?.let {
+                when(isFavorite){
+                    true ->{
+                        binding.saveToDBButtonView.visibility = View.GONE
+                        binding.removeFromDBButtonView.visibility = View.VISIBLE
+                    }
+                    false -> {
+                        binding.saveToDBButtonView.visibility = View.VISIBLE
+                        binding.removeFromDBButtonView.visibility = View.GONE
+                    }
+                }
+            }
+
+        }
+
+        binding.viewModel = viewModel
         return binding.root
 
     }
@@ -83,6 +102,8 @@ class MovieDetailFragment : Fragment() {
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
+
+
 
     }
 

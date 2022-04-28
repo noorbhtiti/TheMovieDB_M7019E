@@ -12,4 +12,6 @@
     <string name="movies_are_being_loaded">Movies are being loaded</string>
     <string name="fragment_third_label">Movie Extras</string>
     <string name="imdb">IMDB</string>
+    <string name="dd_to_db">dd_to_db</string>
+    <string name="remove_from_db">remove_from_db</string>
 </resources>
