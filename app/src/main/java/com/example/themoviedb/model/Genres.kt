@@ -8,10 +8,9 @@ import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
 
 
-@Parcelize
 data class Genres(
 
     @Json(name = "name")
     var name : String,
 
-) : Parcelable
+)

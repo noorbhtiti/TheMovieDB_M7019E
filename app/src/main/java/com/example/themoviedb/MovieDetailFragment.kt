@@ -1,5 +1,6 @@
 package com.example.themoviedb
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -34,6 +35,7 @@ class MovieDetailFragment : Fragment() {
     private lateinit var imdb_id: String
 
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,6 +54,14 @@ class MovieDetailFragment : Fragment() {
                 binding.detailsModel = it
                 imdb_id = it.imdb_id
             }
+        }
+        viewModel.moviesGenres.observe(viewLifecycleOwner){ genresList ->
+            val mutableList = mutableListOf<String>()
+            val genresText = "Genre(s): "
+            genresList?.forEach { genres ->
+                mutableList.add(genres.name)
+            }
+            binding.movieDetailGenres.text = genresText + mutableList.joinToString(", ")
         }
         return binding.root
 

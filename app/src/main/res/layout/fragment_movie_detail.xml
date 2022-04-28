@@ -45,7 +45,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="gen"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_detail_title" />
 
@@ -68,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@string/imdb"
+            android:text="imdb"
             android:textStyle="bold"
             android:backgroundTint="#F5C518"
             android:textColor="@color/black"

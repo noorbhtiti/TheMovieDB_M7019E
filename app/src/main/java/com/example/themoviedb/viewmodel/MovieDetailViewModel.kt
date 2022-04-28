@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.themoviedb.database.MovieDatabaseDao
+import com.example.themoviedb.model.Genres
 import com.example.themoviedb.model.Movie
 import com.example.themoviedb.network.DataFetchStatus
 import com.example.themoviedb.network.MovieDetailsResponse
@@ -48,16 +49,25 @@ class MovieDetailViewModel(
             return _movieDetails
         }
 
+    private val _moviesGenres = MutableLiveData<List<Genres>>()
+    val moviesGenres: LiveData<List<Genres>>
+        get() {
+            return _moviesGenres
+        }
+
+
 
     fun getMovieDetails(movie_id: String){
         viewModelScope.launch {
             try {
                 val movieDetailsResponse: MovieDetailsResponse = TMDBApi.movieListRetrofitService.getMovieDetails(movie_id)
                 _movieDetails.value = movieDetailsResponse
+                _moviesGenres.value = movieDetailsResponse.genres
                 _dataFetchStatus.value = DataFetchStatus.DONE
             }catch (e:Exception){
                 _dataFetchStatus.value = DataFetchStatus.ERROR
                 _movieDetails.value = null
+                _moviesGenres.value = listOf()
             }
         }
     }
