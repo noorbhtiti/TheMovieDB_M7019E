@@ -1,5 +1,6 @@
 package com.example.themoviedb
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -9,10 +10,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.themoviedb.adapter.MovieListAdapter
-import com.example.themoviedb.adapter.MovieListClickListener
 import com.example.themoviedb.database.MovieDatabase
 import com.example.themoviedb.database.MovieDatabaseDao
+import com.example.themoviedb.databinding.FragmentMoiveListBinding
 import com.example.themoviedb.databinding.FragmentMovieDetailBinding
 import com.example.themoviedb.model.Movie
 import com.example.themoviedb.model.MovieDetails
@@ -29,53 +29,30 @@ import com.example.themoviedb.viewmodel.MovieListViewModelFactory
 class MovieDetailFragment : Fragment() {
 
     private var _binding: FragmentMovieDetailBinding? = null
-
+    private val binding get() = _binding!!
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var viewModelFactory: MovieDetailViewModelFactory
-    private lateinit var movieViewModel: MovieListViewModel
-    private lateinit var movieModelFactory: MovieListViewModelFactory
     private lateinit var movieDatabaseDao: MovieDatabaseDao
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+
 
     private lateinit var movie : Movie
     private lateinit var movieDetails: MovieDetails
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
         _binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
-        movie = MovieDetailFragmentArgs.fromBundle(requireArguments()).movie
 
         val application = requireNotNull(this.activity).application
+
+        movie= MovieDetailFragmentArgs.fromBundle(requireArguments()).movie
         movieDatabaseDao = MovieDatabase.getDatabase(application).movieDatabaseDao()
-
-        viewModelFactory = MovieDetailViewModelFactory(movieDatabaseDao, application, movie)
+        viewModelFactory = MovieDetailViewModelFactory(movieDatabaseDao, application,movie)
         viewModel = ViewModelProvider(this, viewModelFactory)[MovieDetailViewModel::class.java]
-
-        movieModelFactory = MovieListViewModelFactory(movieDatabaseDao, application)
-        movieViewModel = ViewModelProvider(this, movieModelFactory)[MovieListViewModel::class.java]
-
-        viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
-            when(isFavorite){
-                true -> {
-                    binding.addToDb.visibility = View.GONE
-                    binding.removeFromDb.visibility = View.VISIBLE
-                } false -> {
-                    binding.addToDb.visibility = View.VISIBLE
-                    binding.removeFromDb.visibility = View.GONE
-                }
-            }
-        }
-
-
         binding.movie = movie
-        binding.viewModel = viewModel
-
+        binding.detailsModel = viewModel
         return binding.root
 
     }
@@ -92,7 +69,7 @@ class MovieDetailFragment : Fragment() {
         }
 
         binding.imdbButton.setOnClickListener {
-            val uri: Uri = Uri.parse(Constants.IMDB_URL+movieDetails.imdb_id) // missing 'http://' will cause crashed
+            val uri: Uri = Uri.parse(Constants.IMDB_URL+ movieDetails.imdb_id) // missing 'http://' will cause crashed
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }

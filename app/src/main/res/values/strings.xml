@@ -11,6 +11,4 @@
     <string name="imdb">IMDB</string>
     <string name="todo">TODO</string>
     <string name="movies_are_being_loaded">Movies are being loaded</string>
-    <string name="add_to_db">ADD TO DB</string>
-    <string name="rm_to_db">RM FROM DB</string>
 </resources>

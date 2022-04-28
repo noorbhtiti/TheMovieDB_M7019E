@@ -12,7 +12,7 @@ import kotlinx.parcelize.Parcelize
 data class Movie(
     @PrimaryKey()
     @Json(name = "id")
-    var id :Int,
+    var id :Long,
 
     @ColumnInfo(name = "title")
     @Json(name = "title")

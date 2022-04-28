@@ -31,9 +31,7 @@ class MovieListFragment : Fragment() {
     private lateinit var movieDatabaseDao: MovieDatabaseDao
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMoiveListBinding.inflate(inflater, container, false)
 
         val application = requireNotNull(this.activity).application
@@ -44,7 +42,6 @@ class MovieListFragment : Fragment() {
 
         val movieListAdapter = MovieListAdapter(MovieListClickListener { movie ->
             viewModel.onMovieListItemClicked(movie)
-            viewModel.getMovieDetails(movie.id.toString())
         })
         val gridLayoutManager = GridLayoutManager(application,2)
 
