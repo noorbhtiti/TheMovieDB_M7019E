@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+
+    <data>
+        <variable
+            name="review"
+            type="com.example.themoviedb.model.Review" />
+
+    </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,9 +23,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="author"
+            app:ReviewAuthor = "@{review.author}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
 
         <TextView
             android:id="@+id/content"
@@ -24,10 +37,33 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="content"
+            app:ReviewContent = "@{review.content}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/author"
-            android:maxLines="3"/>
+            android:maxLines="6"/>
+
+
+
+        <TextView
+            android:id="@+id/created_at"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:ReviewCreatedAt="@{review.created_at}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/content"/>
+
+        <TextView
+            android:id="@+id/see_the_whole_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/click_the_link_below_to_see_the_whole_review"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/created_at" />
+
 
         <TextView
             android:id="@+id/url"
@@ -35,11 +71,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="url"
+            android:text="@{review.url}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/content"
-            android:clickable="true"
-            android:focusable="true" />
+            app:layout_constraintTop_toBottomOf="@+id/see_the_whole_review"
+            android:autoLink="web" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

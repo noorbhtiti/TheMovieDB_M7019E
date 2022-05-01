@@ -94,7 +94,7 @@ class MovieDetailFragment : Fragment() {
         }
 
         binding.goToThirdFragment.setOnClickListener {
-            findNavController().navigate(MovieDetailFragmentDirections.actionSecondFragmentToThirdFragment())
+            findNavController().navigate(MovieDetailFragmentDirections.actionSecondFragmentToThirdFragment(movie))
         }
 
         binding.imdbButton.setOnClickListener {

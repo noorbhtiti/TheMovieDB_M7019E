@@ -32,7 +32,7 @@ class MovieReviewsViewModel(private val movieDatabaseDao: MovieDatabaseDao, appl
         }
 
     init {
-        getMovieReviews("414906")
+        getMovieReviews(movie.id.toString())
         _dataFetchStatus.value = DataFetchStatus.LOADING
     }
 

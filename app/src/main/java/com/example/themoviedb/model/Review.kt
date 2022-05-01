@@ -3,6 +3,10 @@ package com.example.themoviedb.model
 import com.squareup.moshi.Json
 
 data class Review(
+
+    @Json(name = "id")
+    var id: String?,
+
     @Json(name = "author")
     var author :String?,
 
@@ -13,6 +17,6 @@ data class Review(
     var created_at : String?,
 
     @Json(name = "url")
-    var backdropPath : String?,
+    var url : String?,
 
     )

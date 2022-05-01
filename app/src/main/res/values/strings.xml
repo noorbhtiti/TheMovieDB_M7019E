@@ -16,4 +16,6 @@
     <string name="remove_from_db">remove_from_db</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="the_review">The Review: </string>
+    <string name="click_the_link_below_to_see_the_whole_review">Click the link below to see the whole review</string>
 </resources>

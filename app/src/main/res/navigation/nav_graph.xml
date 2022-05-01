@@ -39,5 +39,8 @@
         <action
             android:id="@+id/action_thirdFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <argument
+            android:name="movie"
+            app:argType="com.example.themoviedb.model.Movie" />
     </fragment>
 </navigation>
