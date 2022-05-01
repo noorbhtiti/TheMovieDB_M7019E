@@ -27,9 +27,9 @@ class MovieExtrasFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.BackToHome.setOnClickListener {
-            findNavController().navigate(MovieExtrasFragmentDirections.actionThirdFragmentToFirstFragment())
-        }
+//        binding.BackToHome.setOnClickListener {
+//            findNavController().navigate(MovieExtrasFragmentDirections.actionThirdFragmentToFirstFragment())
+//        }
 
     }
 

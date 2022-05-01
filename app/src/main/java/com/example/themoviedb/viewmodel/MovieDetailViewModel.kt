@@ -11,8 +11,10 @@ import com.example.themoviedb.R
 import com.example.themoviedb.database.MovieDatabaseDao
 import com.example.themoviedb.model.Genres
 import com.example.themoviedb.model.Movie
+import com.example.themoviedb.model.Review
 import com.example.themoviedb.network.DataFetchStatus
 import com.example.themoviedb.network.MovieDetailsResponse
+import com.example.themoviedb.network.MovieReviewsResponse
 import com.example.themoviedb.network.TMDBApi
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
@@ -40,6 +42,7 @@ class MovieDetailViewModel(
     init {
         getMovieDetails(movie.id.toString())
         setIsFavorite(movie)
+        getMovieReviews(movie.id.toString())
     }
 
     private fun setIsFavorite(movie: Movie) {
@@ -91,6 +94,25 @@ class MovieDetailViewModel(
                 _dataFetchStatus.value = DataFetchStatus.ERROR
                 _movieDetails.value = null
                 _moviesGenres.value = listOf()
+            }
+        }
+    }
+
+    private val _movieReviews = MutableLiveData<List<Review>>()
+    val movieReviews: LiveData<List<Review>>
+        get() {
+            return _movieReviews
+        }
+
+    fun getMovieReviews(movie_id: String){
+        viewModelScope.launch {
+            try {
+                val movieReviewResponse: MovieReviewsResponse = TMDBApi.movieListRetrofitService.getMovieReviews(movie_id)
+                _movieReviews.value = movieReviewResponse.results
+                _dataFetchStatus.value = DataFetchStatus.DONE
+            }catch (e:Exception){
+                _dataFetchStatus.value = DataFetchStatus.ERROR
+                _movieReviews.value = arrayListOf()
             }
         }
     }

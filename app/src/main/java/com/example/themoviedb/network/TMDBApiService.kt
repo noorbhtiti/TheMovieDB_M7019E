@@ -49,7 +49,7 @@ private val movieListRetrofit = Retrofit.Builder()
     .build()
 
 interface TMDBApiService{
-    @GET("popular") // popular doesn't work!! TODO
+    @GET("popular")
     suspend fun getPopularMovies(
         @Query("api_key")
         apiKey : String = Constants.API_KEY
@@ -66,6 +66,12 @@ interface TMDBApiService{
         @Path("movie_id")
         movieId: String
     ): MovieDetailsResponse
+
+    @GET("{movie_id}/reviews?api_key=${Constants.API_KEY}")
+    suspend fun getMovieReviews(
+        @Path("movie_id")
+        movieId: String
+    ): MovieReviewsResponse
 }
 
 object TMDBApi{

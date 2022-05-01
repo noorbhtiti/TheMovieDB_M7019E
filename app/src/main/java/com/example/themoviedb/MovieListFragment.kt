@@ -57,7 +57,7 @@ class MovieListFragment : Fragment() {
         viewModel.navigateToMovieDetail.observe(viewLifecycleOwner){ movie ->
             movie?.let {
                 this.findNavController().navigate(
-                    MovieListFragmentDirections.actionFirstFragmentToSecondFragment(movie) //TODO
+                    MovieListFragmentDirections.actionFirstFragmentToSecondFragment(movie)
                 )
                 viewModel.onMovieDetailNavigated()
             }

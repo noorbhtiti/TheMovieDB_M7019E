@@ -14,4 +14,6 @@
     <string name="imdb">IMDB</string>
     <string name="dd_to_db">dd_to_db</string>
     <string name="remove_from_db">remove_from_db</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

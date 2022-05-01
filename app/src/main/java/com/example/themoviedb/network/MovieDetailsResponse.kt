@@ -19,6 +19,4 @@ class MovieDetailsResponse {
     @Json(name = "overview")
     lateinit var overview: String
 
-
-
 }
