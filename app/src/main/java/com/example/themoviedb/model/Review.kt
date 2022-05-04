@@ -1,6 +1,11 @@
 package com.example.themoviedb.model
 
+import com.example.themoviedb.database.ReviewDatabase
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
+data class ReviewContainer(val reviews: List<Review>)
 
 data class Review(
 
@@ -20,3 +25,26 @@ data class Review(
     var url : String?,
 
     )
+
+fun ReviewContainer.asDomainModel(): List<Review> {
+    return reviews.map {
+        Review(
+            id = it.id,
+            author = it.author,
+            content = it.content,
+            created_at = it.created_at,
+            url = it.url
+        )
+    }
+}
+fun ReviewContainer.asDatabaseModel(): List<ReviewDatabase> {
+    return reviews.map {
+        ReviewDatabase(
+            id = it.id!!,
+            author = it.author!!,
+            content = it.content!!,
+            created_at = it.created_at!!,
+            url = it.url!!
+        )
+    }
+}

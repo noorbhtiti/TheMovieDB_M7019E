@@ -42,7 +42,6 @@ class MovieDetailViewModel(
     init {
         getMovieDetails(movie.id.toString())
         setIsFavorite(movie)
-        getMovieReviews(movie.id.toString())
     }
 
     private fun setIsFavorite(movie: Movie) {
