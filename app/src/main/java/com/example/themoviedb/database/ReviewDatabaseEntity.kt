@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.example.themoviedb.model.Review
 
 @Entity
-data class ReviewDatabase constructor(
+data class ReviewDatabaseEntity constructor(
     @PrimaryKey
     val id : String,
     val author : String,
@@ -14,7 +14,7 @@ data class ReviewDatabase constructor(
     val url : String,
 )
 
-fun List<ReviewDatabase>.asDomainModel(): List<Review> {
+fun List<ReviewDatabaseEntity>.asDomainModel(): List<Review> {
     return map {
         Review(
             id = it.id,

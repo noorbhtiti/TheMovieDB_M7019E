@@ -6,13 +6,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.themoviedb.database.MovieDatabaseDao
-import com.example.themoviedb.database.getDatabase
+import com.example.themoviedb.database.getReviewDatabase
 import com.example.themoviedb.model.Movie
 import com.example.themoviedb.model.Review
 import com.example.themoviedb.network.DataFetchStatus
-import com.example.themoviedb.network.MovieResponse
-import com.example.themoviedb.network.MovieReviewsResponse
-import com.example.themoviedb.network.TMDBApi
 import com.example.themoviedb.repository.ReviewsRepository
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -29,7 +26,7 @@ class MovieReviewsViewModel(private val movieDatabaseDao: MovieDatabaseDao, appl
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
 
-    private val reviewsRepository = ReviewsRepository(getDatabase(application))
+    private val reviewsRepository = ReviewsRepository(getReviewDatabase(application))
 
     val reviewlist = reviewsRepository.reviews
 

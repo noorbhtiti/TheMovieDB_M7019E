@@ -1,6 +1,6 @@
 package com.example.themoviedb.model
 
-import com.example.themoviedb.database.ReviewDatabase
+import com.example.themoviedb.database.ReviewDatabaseEntity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -37,9 +37,9 @@ fun ReviewContainer.asDomainModel(): List<Review> {
         )
     }
 }
-fun ReviewContainer.asDatabaseModel(): List<ReviewDatabase> {
+fun ReviewContainer.asDatabaseModel(): List<ReviewDatabaseEntity> {
     return reviews.map {
-        ReviewDatabase(
+        ReviewDatabaseEntity(
             id = it.id!!,
             author = it.author!!,
             content = it.content!!,
