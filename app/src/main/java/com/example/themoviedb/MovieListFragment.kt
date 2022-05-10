@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.themoviedb.adapter.MovieListAdapter
 import com.example.themoviedb.adapter.MovieListClickListener
+import com.example.themoviedb.database.MovieCacheDao
 import com.example.themoviedb.database.MovieDatabase
 import com.example.themoviedb.database.MovieDatabaseDao
 import com.example.themoviedb.databinding.FragmentMoiveListBinding
@@ -29,6 +30,7 @@ class MovieListFragment : Fragment() {
     private lateinit var viewModel: MovieListViewModel
     private lateinit var viewModelFactory: MovieListViewModelFactory
     private lateinit var movieDatabaseDao: MovieDatabaseDao
+    private lateinit var movieCacheDao: MovieCacheDao
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -37,7 +39,7 @@ class MovieListFragment : Fragment() {
         val application = requireNotNull(this.activity).application
 
         movieDatabaseDao = MovieDatabase.getDatabase(application).movieDatabaseDao()
-        viewModelFactory = MovieListViewModelFactory(movieDatabaseDao, application)
+        viewModelFactory = MovieListViewModelFactory(movieDatabaseDao,movieCacheDao, application)
         viewModel = ViewModelProvider(this, viewModelFactory)[MovieListViewModel::class.java]
 
         val movieListAdapter = MovieListAdapter(MovieListClickListener { movie ->

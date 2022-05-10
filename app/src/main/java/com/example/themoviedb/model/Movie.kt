@@ -4,8 +4,14 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.themoviedb.database.Movies
+import com.example.themoviedb.database.ReviewDatabaseEntity
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
+
+@JsonClass(generateAdapter = true)
+data class MovieContainer(val movies: List<Movie>)
 
 @Parcelize
 @Entity(tableName = "movies")
@@ -37,3 +43,41 @@ data class Movie(
 
 
 ) : Parcelable
+/**
+private fun <MovieContainer> List<Movies>.asDomainModel() {
+    return movies.map {
+        Movie(
+            id = it.id,
+            title = it.title,
+            posterPath = it.posterPath,
+            backdropPath = it.backdropPath,
+            releaseData = it.releaseData,
+            overview = it.overview
+        )
+    }
+}
+**/
+fun MovieContainer.asDomainModel(): List<Movie> {
+    return movies.map {
+        Movie(
+            id = it.id,
+            title = it.title,
+            posterPath = it.posterPath,
+            backdropPath = it.backdropPath,
+            releaseData = it.releaseData,
+            overview = it.overview
+        )
+    }
+}
+fun MovieContainer.asDatabaseModel(): List<Movie> {
+    return movies.map {
+        Movie(
+            id = it.id,
+            title = it.title,
+            posterPath = it.posterPath,
+            backdropPath = it.backdropPath,
+            releaseData = it.releaseData,
+            overview = it.overview
+        )
+    }
+}
