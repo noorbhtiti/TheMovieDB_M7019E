@@ -10,6 +10,7 @@ import com.example.themoviedb.model.Movie
 abstract class MovieDatabase :RoomDatabase(){
 
     abstract fun movieDatabaseDao(): MovieDatabaseDao
+    abstract fun movieCacheDao(): MovieCacheDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the

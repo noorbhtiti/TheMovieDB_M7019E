@@ -39,6 +39,7 @@ class MovieListFragment : Fragment() {
         val application = requireNotNull(this.activity).application
 
         movieDatabaseDao = MovieDatabase.getDatabase(application).movieDatabaseDao()
+        movieCacheDao = MovieDatabase.getDatabase(application).movieCacheDao()
         viewModelFactory = MovieListViewModelFactory(movieDatabaseDao,movieCacheDao, application)
         viewModel = ViewModelProvider(this, viewModelFactory)[MovieListViewModel::class.java]
 
