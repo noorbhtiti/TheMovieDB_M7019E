@@ -1,11 +1,10 @@
 package com.example.themoviedb.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.themoviedb.database.MovieDatabaseDao
+import com.example.themoviedb.database.ReviewDatabaseDao
+import com.example.themoviedb.database.asDomainModel
 import com.example.themoviedb.database.getReviewDatabase
 import com.example.themoviedb.model.Movie
 import com.example.themoviedb.model.Review
@@ -15,7 +14,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 
-class MovieReviewsViewModel(private val movieDatabaseDao: MovieDatabaseDao, application: Application,movie: Movie) :
+class MovieReviewsViewModel(private val movieReviewDao: ReviewDatabaseDao, application: Application, movie: Movie) :
     AndroidViewModel(application) {
 
     private var _eventNetworkError = MutableLiveData<Boolean>(false)
@@ -26,7 +25,7 @@ class MovieReviewsViewModel(private val movieDatabaseDao: MovieDatabaseDao, appl
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
 
-    private val reviewsRepository = ReviewsRepository(getReviewDatabase(application))
+    private val reviewsRepository = ReviewsRepository(getReviewDatabase(application), movie.id.toString())
 
     val reviewlist = reviewsRepository.reviews
 
@@ -42,7 +41,7 @@ class MovieReviewsViewModel(private val movieDatabaseDao: MovieDatabaseDao, appl
     private val _movieReviews = MutableLiveData<List<Review>>()
     val movieReviews: LiveData<List<Review>>
         get() {
-            return reviewlist
+            return reviewsRepository.movieReviews
         }
 
     init {

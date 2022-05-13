@@ -10,11 +10,14 @@ interface ReviewDatabaseDao {
     @Query("select * from reviewdatabaseentity")
     fun getListOfReviews(): LiveData<List<ReviewDatabaseEntity>>
 
+    @Query("select * from reviewdatabaseentity where id IN(:movie_id)")
+    fun getReviews(movie_id: String): LiveData<List<ReviewDatabaseEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll( videos: List<ReviewDatabaseEntity>)
+    fun insertAll( reviews: List<ReviewDatabaseEntity>)
 
 }
-@Database(entities = [ReviewDatabaseEntity::class], version = 1)
+@Database(entities = [ReviewDatabaseEntity::class], version = 2, exportSchema = false)
 abstract class ReviewsDatabase: RoomDatabase() {
     abstract val reviewDao: ReviewDatabaseDao
 
@@ -27,7 +30,7 @@ fun getReviewDatabase(context: Context): ReviewsDatabase {
         if (!::INSTANCE.isInitialized) {
             INSTANCE = Room.databaseBuilder(context.applicationContext,
             ReviewsDatabase::class.java,
-            "reviews").build()
+            "reviews").fallbackToDestructiveMigration().build()
         }
     }
     return INSTANCE

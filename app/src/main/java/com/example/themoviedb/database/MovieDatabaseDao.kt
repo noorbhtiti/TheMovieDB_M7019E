@@ -33,9 +33,11 @@ interface MovieCacheDao {
     @Delete
     suspend fun delete(movie: Movie)
 
-
     @Query("SELECT * from movies ORDER BY id ASC")
     suspend fun getAllMovies(): List<Movie>
+
+    @Query("SELECT * from movies ORDER BY id ASC")
+    fun getMovies(): LiveData<List<Movie>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll( movies: List<Movie>)

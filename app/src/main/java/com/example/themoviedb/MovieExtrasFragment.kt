@@ -6,17 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.example.themoviedb.adapter.MovieListAdapter
-import com.example.themoviedb.adapter.MovieListClickListener
 import com.example.themoviedb.adapter.MovieReviewAdapter
 import com.example.themoviedb.database.MovieDatabase
 import com.example.themoviedb.database.MovieDatabaseDao
-import com.example.themoviedb.databinding.FragmentMoiveListBinding
+import com.example.themoviedb.database.ReviewDatabaseDao
+import com.example.themoviedb.database.getReviewDatabase
 import com.example.themoviedb.databinding.FragmentMovieExtrasBinding
 import com.example.themoviedb.model.Movie
-import com.example.themoviedb.viewmodel.MovieListViewModel
-import com.example.themoviedb.viewmodel.MovieListViewModelFactory
 import com.example.themoviedb.viewmodel.MovieReviewsViewModel
 import com.example.themoviedb.viewmodel.MovieReviewsViewModelFactory
 
@@ -28,7 +24,7 @@ class MovieExtrasFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModelReview: MovieReviewsViewModel
     private lateinit var viewModelReviewFactory: MovieReviewsViewModelFactory
-    private lateinit var movieDatabaseDao: MovieDatabaseDao
+    private lateinit var reviewDatabaseDao: ReviewDatabaseDao
     private lateinit var movie : Movie
 
     override fun onCreateView(
@@ -39,8 +35,8 @@ class MovieExtrasFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         movie= MovieExtrasFragmentArgs.fromBundle(requireArguments()).movie
 
-        movieDatabaseDao = MovieDatabase.getDatabase(application).movieDatabaseDao()
-        viewModelReviewFactory = MovieReviewsViewModelFactory(movieDatabaseDao, application,movie)
+        reviewDatabaseDao = getReviewDatabase(application).reviewDao
+        viewModelReviewFactory = MovieReviewsViewModelFactory(reviewDatabaseDao, application,movie)
         viewModelReview = ViewModelProvider(this, viewModelReviewFactory)[MovieReviewsViewModel::class.java]
 
         val movieReviewAdapter = MovieReviewAdapter()

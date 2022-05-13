@@ -12,13 +12,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-class ReviewsRepository(private val database: ReviewsDatabase) {
+class ReviewsRepository(private val database: ReviewsDatabase, movie_id: String) {
+
+    lateinit var movie_id: String
 
     val reviews: LiveData<List<Review>> = Transformations.map(database.reviewDao.getListOfReviews()) {
         it.asDomainModel()
     }
+    val movieReviews: LiveData<List<Review>> = Transformations.map(database.reviewDao.getReviews(movie_id)) {
+        it.asDomainModel()
+    }
 
     suspend fun refreshReviews(movie_id : String) {
+        this@ReviewsRepository.movie_id = movie_id
         withContext(Dispatchers.IO) {
             Timber.d("refresh reviews is called")
             val reviewResponse = TMDBApi.movieListRetrofitService.getMovieReviews(movie_id)
