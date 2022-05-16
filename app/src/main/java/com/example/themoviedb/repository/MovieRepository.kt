@@ -67,7 +67,7 @@ class MovieRepository(private val databaseDao: MovieDatabaseDao) {
             //val results:List<Movie> = TMDBApi.movieListRetrofitService.getTopRatedMovies().results
     }
 
-    suspend fun getSavedMovies(): List<Movie> {
-        return databaseDao.getAllMovies()
+    suspend fun getSavedMovies()  {
+        movies.value = databaseDao.getAllMovies()
     }
 }

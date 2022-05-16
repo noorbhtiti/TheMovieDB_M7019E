@@ -1,5 +1,8 @@
 package com.example.themoviedb
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,14 +17,16 @@ import com.example.themoviedb.adapter.MovieListClickListener
 import com.example.themoviedb.database.MovieDatabase
 import com.example.themoviedb.database.MovieDatabaseDao
 import com.example.themoviedb.databinding.FragmentMoiveListBinding
+import com.example.themoviedb.network.ConnectionLiveData
 import com.example.themoviedb.network.DataFetchStatus
 import com.example.themoviedb.viewmodel.MovieListViewModel
 import com.example.themoviedb.viewmodel.MovieListViewModelFactory
+import timber.log.Timber
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class MovieListFragment : Fragment() {
+abstract class MovieListFragment : Fragment() {
 
 
     private var _binding: FragmentMoiveListBinding? = null
@@ -29,9 +34,12 @@ class MovieListFragment : Fragment() {
     private lateinit var viewModel: MovieListViewModel
     private lateinit var viewModelFactory: MovieListViewModelFactory
     private lateinit var movieDatabaseDao: MovieDatabaseDao
+    private lateinit var connectionLiveData: ConnectionLiveData
+    private var currentList: Int = 0
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentMoiveListBinding.inflate(inflater, container, false)
 
         val application = requireNotNull(this.activity).application
@@ -43,18 +51,31 @@ class MovieListFragment : Fragment() {
         val movieListAdapter = MovieListAdapter(MovieListClickListener { movie ->
             viewModel.onMovieListItemClicked(movie)
         })
-        val gridLayoutManager = GridLayoutManager(application,2)
+        val gridLayoutManager = GridLayoutManager(application, 2)
 
+        // Connection Listener
+        connectionLiveData = ConnectionLiveData(application.applicationContext)
+        connectionLiveData.observe(viewLifecycleOwner) { isNetworkAvailable ->
+            isNetworkAvailable?.let {
+                if (it) {
+                    if (currentList == 0) {
+                        Timber.d("network")
+                        viewModel.getPopularMovies()
+                    } else if (currentList == 1) {
+                        viewModel.getTopRatedMovies()
+                    }
+                }
+            }
+        }
         binding.movieListRv.layoutManager = gridLayoutManager
         binding.movieListRv.adapter = movieListAdapter
         viewModel.movies.observe(viewLifecycleOwner) { movieList ->
-            movieList?.let{
-            movieListAdapter.submitList(movieList)
+            movieList?.let {
+                movieListAdapter.submitList(movieList)
             }
         }
 
-
-        viewModel.navigateToMovieDetail.observe(viewLifecycleOwner){ movie ->
+        viewModel.navigateToMovieDetail.observe(viewLifecycleOwner) { movie ->
             movie?.let {
                 this.findNavController().navigate(
                     MovieListFragmentDirections.actionFirstFragmentToSecondFragment(movie)
@@ -62,9 +83,9 @@ class MovieListFragment : Fragment() {
                 viewModel.onMovieDetailNavigated()
             }
         }
-        viewModel.dataFetchStatus.observe(viewLifecycleOwner){status ->
+        viewModel.dataFetchStatus.observe(viewLifecycleOwner) { status ->
             status?.let {
-                when(status){
+                when (status) {
                     DataFetchStatus.LOADING -> {
                         binding.statusImage.visibility = View.VISIBLE
                         binding.statusImage.setImageResource(R.drawable.loading_animation)
@@ -91,14 +112,17 @@ class MovieListFragment : Fragment() {
          *  as you specify a parent activity in AndroidManifest.xml.
          */
 
-         when (item.itemId) {
+        when (item.itemId) {
             R.id.action_popular_movies -> {
+                currentList = 0
                 viewModel.getPopularMovies()
             }
             R.id.action_top_rated_movies -> {
+                currentList = 1
                 viewModel.getTopRatedMovies()
             }
             R.id.action_saved_movies -> {
+                currentList = 2
                 viewModel.getSavedMovies()
             }
             else -> super.onOptionsItemSelected(item)
@@ -110,4 +134,5 @@ class MovieListFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

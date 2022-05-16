@@ -13,11 +13,10 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, application: Application) :
+abstract class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, application: Application) :
     AndroidViewModel(application) {
 
     private val movieRepository = MovieRepository(movieDatabaseDao)
-
 
     private val _dataFetchStatus = MutableLiveData<DataFetchStatus>()
     val dataFetchStatus: LiveData<DataFetchStatus>
@@ -71,7 +70,7 @@ class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, applica
 
     fun getSavedMovies(){
         viewModelScope.launch {
-            _movies.postValue(movieRepository.getSavedMovies())
+            movieRepository.getSavedMovies()
         }
     }
 
