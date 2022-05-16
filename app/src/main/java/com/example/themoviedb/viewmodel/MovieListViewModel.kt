@@ -10,10 +10,14 @@ import com.example.themoviedb.model.Movie
 import com.example.themoviedb.network.DataFetchStatus
 import com.example.themoviedb.network.MovieResponse
 import com.example.themoviedb.network.TMDBApi
+import com.example.themoviedb.repository.MovieRepository
 import kotlinx.coroutines.launch
 
 class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, application: Application) :
     AndroidViewModel(application) {
+
+    private val movieRepository = MovieRepository(movieDatabaseDao)
+
 
     private val _dataFetchStatus = MutableLiveData<DataFetchStatus>()
     val dataFetchStatus: LiveData<DataFetchStatus>
@@ -23,9 +27,10 @@ class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, applica
 
 
     private val _movies = MutableLiveData<List<Movie>>()
+    //val movies = movieRepository.movies
     val movies: LiveData<List<Movie>>
         get() {
-            return _movies
+            return movieRepository.movies
         }
 
 
@@ -44,12 +49,12 @@ class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, applica
     fun getPopularMovies(){
         viewModelScope.launch {
              try {
-                 val movieResponse:MovieResponse = TMDBApi.movieListRetrofitService.getPopularMovies()
-                 _movies.value = movieResponse.results
+                 //val movieResponse:MovieResponse = TMDBApi.movieListRetrofitService.getPopularMovies()
+                 //_movies.value = movieResponse.results
+                 movieRepository.refreshPopularMovies()
                  _dataFetchStatus.value = DataFetchStatus.DONE
              }catch (e:Exception){
                  _dataFetchStatus.value = DataFetchStatus.ERROR
-                 _movies.value = arrayListOf()
              }
         }
     }
@@ -57,12 +62,12 @@ class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, applica
     fun getTopRatedMovies(){
         viewModelScope.launch {
             try {
-                val movieResponse:MovieResponse = TMDBApi.movieListRetrofitService.getTopRatedMovies()
-                _movies.value = movieResponse.results
+                movieRepository.refreshTopRatedMovies()
+                //val movieResponse:MovieResponse = TMDBApi.movieListRetrofitService.getTopRatedMovies()
+                //_movies.value = movieResponse.results
                 _dataFetchStatus.value = DataFetchStatus.DONE
             }catch (e:Exception){
                 _dataFetchStatus.value = DataFetchStatus.ERROR
-                _movies.value = arrayListOf()
             }
         }
     }

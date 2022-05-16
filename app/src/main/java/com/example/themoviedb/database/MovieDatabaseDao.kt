@@ -1,16 +1,16 @@
 package com.example.themoviedb.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import com.example.themoviedb.model.Movie
+import com.example.themoviedb.model.PopularMovie
+import com.example.themoviedb.model.TopRatedMovie
 
 @Dao
 interface MovieDatabaseDao {
 
     @Insert
-    suspend fun  insert(movie : Movie)
+    suspend fun insert(movie : Movie)
 
 
     @Delete
@@ -23,4 +23,16 @@ interface MovieDatabaseDao {
 
     @Query("SELECT EXISTS(SELECT * from movies WHERE id = :id)")
     suspend fun isFavorite(id:Long):Boolean
+
+    @Query("select * from popularMovies")
+    fun getPopularMovies(): LiveData<List<PopularMovie>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertPopular( popularMovies: List<PopularMovie>)
+
+    @Query("select * from topRatedMovies")
+    fun getTopRatedMovies(): LiveData<List<TopRatedMovie>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertTopRated( topRatedMovies:  List<TopRatedMovie>)
 }
