@@ -8,10 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.themoviedb.database.MovieDatabaseDao
 import com.example.themoviedb.model.Movie
 import com.example.themoviedb.network.DataFetchStatus
-import com.example.themoviedb.network.MovieResponse
-import com.example.themoviedb.network.TMDBApi
 import com.example.themoviedb.repository.MovieRepository
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, application: Application) :
     AndroidViewModel(application) {
@@ -22,7 +22,7 @@ class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, applica
     private val _dataFetchStatus = MutableLiveData<DataFetchStatus>()
     val dataFetchStatus: LiveData<DataFetchStatus>
         get() {
-            return _dataFetchStatus
+            return movieRepository.dataFetchStatus
         }
 
 
@@ -47,27 +47,23 @@ class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, applica
     }
 
     fun getPopularMovies(){
-        viewModelScope.launch {
+        viewModelScope.launch(SupervisorJob())  {
              try {
                  //val movieResponse:MovieResponse = TMDBApi.movieListRetrofitService.getPopularMovies()
                  //_movies.value = movieResponse.results
                  movieRepository.refreshPopularMovies()
-                 _dataFetchStatus.value = DataFetchStatus.DONE
-             }catch (e:Exception){
-                 _dataFetchStatus.value = DataFetchStatus.ERROR
+             }catch (networkError: IOException){
              }
         }
     }
 
     fun getTopRatedMovies(){
-        viewModelScope.launch {
+        viewModelScope.launch(SupervisorJob()) {
             try {
                 movieRepository.refreshTopRatedMovies()
                 //val movieResponse:MovieResponse = TMDBApi.movieListRetrofitService.getTopRatedMovies()
                 //_movies.value = movieResponse.results
-                _dataFetchStatus.value = DataFetchStatus.DONE
-            }catch (e:Exception){
-                _dataFetchStatus.value = DataFetchStatus.ERROR
+            }catch (networkError: IOException){
             }
         }
     }
@@ -75,7 +71,7 @@ class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, applica
 
     fun getSavedMovies(){
         viewModelScope.launch {
-            _movies.postValue(movieDatabaseDao.getAllMovies())
+            _movies.postValue(movieRepository.getSavedMovies())
         }
     }
 

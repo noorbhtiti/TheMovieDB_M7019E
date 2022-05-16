@@ -25,14 +25,20 @@ interface MovieDatabaseDao {
     suspend fun isFavorite(id:Long):Boolean
 
     @Query("select * from popularMovies")
-    fun getPopularMovies(): LiveData<List<PopularMovie>>
+    suspend fun getPopularMovies(): List<PopularMovie>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertPopular( popularMovies: List<PopularMovie>)
+    suspend fun insertPopular( popularMovies: List<PopularMovie>)
+
+    @Query("delete from popularMovies")
+    suspend fun deletePopular()
 
     @Query("select * from topRatedMovies")
-    fun getTopRatedMovies(): LiveData<List<TopRatedMovie>>
+    suspend fun getTopRatedMovies(): List<TopRatedMovie>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTopRated( topRatedMovies:  List<TopRatedMovie>)
+    suspend fun insertTopRated( topRatedMovies:  List<TopRatedMovie>)
+
+    @Query("delete from topRatedMovies")
+    suspend fun deleteTopRated()
 }
