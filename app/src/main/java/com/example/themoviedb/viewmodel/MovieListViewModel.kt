@@ -13,7 +13,10 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-abstract class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, application: Application) :
+class MovieListViewModel(
+    private val movieDatabaseDao: MovieDatabaseDao,
+    application: Application
+):
     AndroidViewModel(application) {
 
     private val movieRepository = MovieRepository(movieDatabaseDao)
@@ -71,13 +74,6 @@ abstract class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao
     fun getSavedMovies(){
         viewModelScope.launch {
             movieRepository.getSavedMovies()
-        }
-    }
-
-    fun addMovie() {
-        viewModelScope.launch {
-            movies.value?.let { movieDatabaseDao.insert(it[1])
-            }
         }
     }
 

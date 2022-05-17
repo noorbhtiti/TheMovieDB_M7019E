@@ -26,7 +26,7 @@ import timber.log.Timber
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-abstract class MovieListFragment : Fragment() {
+class MovieListFragment : Fragment() {
 
 
     private var _binding: FragmentMoiveListBinding? = null

@@ -10,6 +10,7 @@
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.243" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/drawable/ic_connection_error.xml" value="0.243" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/drawable/ic_launcher_background.xml" value="0.243" />
+        <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/layout/fragment_moive_list.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/layout/fragment_movie_detail.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/layout/fragment_movie_extras.xml" value="0.264" />
@@ -17,7 +18,7 @@
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/layout/fragment_third.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/layout/movie_grid_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/layout/movie_list_item.xml" value="0.14739583333333334" />
-        <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/layout/movie_review_item.xml" value="0.264" />
+        <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/layout/movie_review_item.xml" value="0.1" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/layout/movie_video_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB - Copy/app/src/main/res/menu/menu_main.xml" value="0.2015625" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB/app/src/main/res/drawable/ic_connection_error.xml" value="0.1" />
@@ -31,6 +32,7 @@
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB/app/src/main/res/layout/movie_list_item.xml" value="0.2223731884057971" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB/app/src/main/res/layout/new_movie.xml" value="0.14739583333333334" />
         <entry key="..\:/Users/Nour/AndroidStudioProjects/TheMovieDB/app/src/main/res/menu/menu_main.xml" value="0.1685185185185185" />
+        <entry key="app/src/main/res/layout/fragment_moive_list.xml" value="0.19947916666666668" />
         <entry key="app/src/main/res/layout/movie_grid_item.xml" value="0.1" />
       </map>
     </option>
